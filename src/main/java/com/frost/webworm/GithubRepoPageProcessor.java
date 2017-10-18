@@ -12,17 +12,12 @@ public class GithubRepoPageProcessor implements PageProcessor {
     @Override
     // process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
     public void process(Page page) {
-        // 部分二：定义如何抽取页面信息，并保存下来
-        page.putField("url", page.getUrl().regex("http://www.xianyang.gov.cn/xyxw/jryw/(\\w+).*").toString());
-        page.putField("name", page.getHtml().xpath("//div[@class='item_title']/a/text()").toString());
-        if (page.getResultItems().get("name") == null) {
-            //skip this page
-            page.setSkip(true);
-        }
-        page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
-
-        // 部分三：从页面发现后续的url地址来抓取
-        page.addTargetRequests(page.getHtml().links().regex("http://www.xianyang.gov.cn/xyxw/jryw/(\\w+).*").all());
+        // 过滤获取列表文章链接
+        page.addTargetRequests(page.getHtml().xpath("//div[@class=\"item_title\"]").links().regex("/xyxw/jryw/\\w+\\.htm").all());
+        //
+        page.putField("title", page.getHtml().xpath("//div[@id=\"info_title\"]/text()").toString());
+        page.putField("release_time", page.getHtml().xpath("//span[@id=\"info_released_dtime\"]/text()").toString());
+        page.putField("content", page.getHtml().xpath("//div[@id=\"info_content\"]/html()").toString());
     }
 
 
