@@ -1,10 +1,20 @@
 package com.frost.webworm.webmagic.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by LB on 2017/10/19.
  */
-public class ReleasePublicEntity {
+
+@Entity
+@Table(name = "release_public")
+public class PublicEntity {
     //id
+    @Id
+    @GeneratedValue
     private Integer id;
     //站点标识
     private String website;
