@@ -1,9 +1,6 @@
 package com.frost.webworm.webmagic.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by LB on 2017/10/19.

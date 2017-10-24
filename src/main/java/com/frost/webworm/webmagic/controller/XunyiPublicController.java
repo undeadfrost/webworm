@@ -1,6 +1,5 @@
 package com.frost.webworm.webmagic.controller;
 
-import com.frost.webworm.webmagic.service.impl.MailRepoPageProcessor;
 import com.frost.webworm.webmagic.service.impl.NewsPipeline;
 import com.frost.webworm.webmagic.service.impl.XydqwRepoPageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,15 @@ import us.codecraft.webmagic.Spider;
 public class XunyiPublicController {
     @Autowired
     private NewsPipeline newsPipeline;
+
     @RequestMapping("/start")
     public String start(){
-        Spider.create(new XydqwRepoPageProcessor()).addUrl("http://www.xydqw.com/xwdt/dtfzkx/index.htm").thread(1).run();
+        Spider.create(
+                new XydqwRepoPageProcessor())
+                .addUrl("http://www.xydqw.com/xwdt/dtfzkx/index.htm")
+                .addPipeline(newsPipeline)
+                .thread(1)
+                .run();
         return "success";
     }
 }

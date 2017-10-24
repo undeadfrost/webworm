@@ -1,7 +1,7 @@
 package com.frost.webworm.webmagic.service.impl;
 
-import com.frost.webworm.webmagic.dao.PublicDao;
-import com.frost.webworm.webmagic.entity.PublicEntity;
+import com.frost.webworm.webmagic.dao.XydqwDao;
+import com.frost.webworm.webmagic.entity.XydqwEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.ResultItems;
@@ -14,17 +14,20 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 @Service
 public class NewsPipeline implements Pipeline {
     @Autowired
-    private PublicDao publicDao;
+    private XydqwDao xydqwDao;
 
     @Override
     public void process(ResultItems resultItems, Task task) {
-        PublicEntity publicEntity = resultItems.get("repo");
-        if (publicEntity == null){
+        XydqwEntity xydqwEntity = resultItems.get("repo");
+        if (xydqwEntity == null){
             return;
         }
-        String publicUrl = publicEntity.getPublicUrl();
-        if (publicDao.findByPublicUrl(publicUrl) == null){
-            publicDao.save(publicEntity);
-        }
+        xydqwDao.save(xydqwEntity);
+//        String publicUrl = publicEntity.getPublicUrl();
+//        if (publicDao.findByPublicUrl(publicUrl) == null){
+//            publicDao.save(publicEntity);
+//        } else {
+//
+//        }
     }
 }

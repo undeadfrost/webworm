@@ -12,7 +12,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 @Service
 public class XunyiRepoPageProcessor implements PageProcessor {
 
-    public final String listUrl = "\\?tm_id=7&node_id=&site_id=CMSxy&catalog_id=72&gk_index=&title=&cur_page=\\d+";
+    public final String listUrl = "\\?tm_id=7&node_id=&site_id=CMSxy&catalog_id=13&gk_index=&title=&cur_page=\\d+";
     public final String cssUrl = "div.pageing span";
 
     private Site site = Site.me().setDomain("www.snxunyi.gov.cn").setSleepTime(100).setUserAgent(
@@ -23,7 +23,7 @@ public class XunyiRepoPageProcessor implements PageProcessor {
     public void process(Page page) {
         // 列表页
         if (page.getUrl().regex(listUrl).match()) {
-            page.addTargetRequests(page.getHtml().links().regex("/gk/\\w+\\/\\w+\\/\\d+\\.htm").all());
+            page.addTargetRequests(page.getHtml().links().regex("/gk/\\w+\\/\\d+\\.htm").all());
             page.addTargetRequests(page.getHtml().css(cssUrl).links().regex(listUrl).all());
         } else {
             PublicEntity publicEntity = new PublicEntity();
@@ -34,7 +34,7 @@ public class XunyiRepoPageProcessor implements PageProcessor {
             publicEntity.setReleaseTime(page.getHtml().css("table.gk-table tr:nth-child(2) td:nth-child(4)").xpath("//td/text()").toString());
             publicEntity.setDocNo(page.getHtml().css("table.gk-table tr:nth-child(3) td:nth-child(2)").xpath("//td/text()").toString());
             publicEntity.setWebsite("旬邑县政府");
-            publicEntity.setPublicColumn("法律法规");
+            publicEntity.setPublicColumn("政府文件");
             if (publicEntity.getPublicTitle() == null) {
                 //skip this page
                 page.setSkip(true);
