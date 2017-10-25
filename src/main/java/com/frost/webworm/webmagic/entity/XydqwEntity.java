@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Created by LB on 2017/10/24.
  */
 @Entity
-@Table(name = "dqw_fzxk")
+@Table(name = "dqw_news")
 public class XydqwEntity {
     @Id
     @GeneratedValue
