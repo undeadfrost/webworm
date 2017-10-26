@@ -6,15 +6,19 @@ import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by LB on 2017/10/21.
  */
 @Service
 public class XydqwRepoPageProcessor implements PageProcessor {
 
-    public final String listUrl = "/xwdt/dtsjdt/inde\\w+\\.htm";
+    public final String listUrl = "/sjzlk/sjxysz/inde\\w+\\.htm";
     public final String cssUrl = "div.pagediv";
-    public final String url = "http://www.xydqw.com/xwdt/dtsjdt/index_";
+    public final String url = "http://www.xydqw.com/sjzlk/sjxysz/index_";
+    public final String contentUrl = "/sjzlk/sjxysz/\\d+/\\w+\\.htm";
 
     private Site site = Site.me().setSleepTime(100).setUserAgent(
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31");
@@ -27,7 +31,25 @@ public class XydqwRepoPageProcessor implements PageProcessor {
             page.addTargetRequest(url + i + ".htm");
         }
         if (page.getUrl().regex(listUrl).match()) {
-            page.addTargetRequests(page.getHtml().links().regex("/xwdt/dtsjdt/\\d+/\\w+\\.htm").all());
+            List<String> linkList = page.getHtml().css("li.content").links().all();
+            List<XydqwEntity> xydqwEntityList = new ArrayList<XydqwEntity>();
+            for (int i = 0 ; i < linkList.size() ; i++) {
+                if (linkList.get(i).matches(contentUrl)){
+                    page.addTargetRequest(linkList.get(i));
+                } else {
+                    XydqwEntity xydqwEntity = new XydqwEntity();
+                    xydqwEntity.setTitle(page.getHtml().css("li.content div:nth-child(1)").xpath("//a/text()").all().get(i));
+                    xydqwEntity.setTime(page.getHtml().css("li.content div:nth-child(2)").xpath("//div/text()").all().get(i));
+                    xydqwEntity.setLink(page.getHtml().css("li.content").links().all().get(i));
+                    xydqwEntityList.add(xydqwEntity);
+                }
+            }
+            if (xydqwEntityList.size() < 1) {
+                //skip this page
+                page.setSkip(true);
+            } else {
+                page.putField("repo", xydqwEntityList);
+            }
             // page.addTargetRequests(page.getHtml().css(cssUrl).links().regex(listUrl).all());
         } else {
             XydqwEntity xydqwEntity = new XydqwEntity();

@@ -19,7 +19,7 @@ public class XunyiPublicController {
     public String start(){
         Spider.create(
                 new XydqwRepoPageProcessor())
-                .addUrl("http://www.xydqw.com/xwdt/dtsjdt/index.htm")
+                .addUrl("http://www.xydqw.com/sjzlk/sjxysz/index.htm")
                 .addPipeline(newsPipeline)
                 .thread(1)
                 .run();

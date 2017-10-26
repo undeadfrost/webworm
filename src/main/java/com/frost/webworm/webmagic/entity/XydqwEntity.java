@@ -18,6 +18,7 @@ public class XydqwEntity {
     private String time;
     private String content;
     private String colum;
+    private String link;
 
     public Integer getId() {
         return id;
@@ -47,6 +48,10 @@ public class XydqwEntity {
         return colum;
     }
 
+    public String getLink() {
+        return link;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -73,5 +78,9 @@ public class XydqwEntity {
 
     public void setColum(String colum) {
         this.colum = colum;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
