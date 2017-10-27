@@ -15,11 +15,13 @@ public class XunyiPublicController {
     @Autowired
     private NewsPipeline newsPipeline;
 
+    @Autowired
+    private XydqwRepoPageProcessor xydqwRepoPageProcessor;
+
     @RequestMapping("/start")
     public String start(){
-        Spider.create(
-                new XydqwRepoPageProcessor())
-                .addUrl("http://www.xydqw.com/sjzlk/sjxysz/index.htm")
+        Spider.create(xydqwRepoPageProcessor)
+                .addUrl("http://www.xydqw.com/zjlt/zjzyjh/index.htm")
                 .addPipeline(newsPipeline)
                 .thread(1)
                 .run();

@@ -20,16 +20,11 @@ public class NewsPipeline implements Pipeline {
 
     @Override
     public void process(ResultItems resultItems, Task task) {
-        try {
-            XydqwEntity xydqwEntity = resultItems.get("repo");
-            xydqwDao.save(xydqwEntity);
-        } catch ()
         XydqwEntity xydqwEntity = resultItems.get("repo");
-        List<XydqwEntity> xydqwEntityList = resultItems.get("repo");
-        if (xydqwEntityList.size() < 1){
-            xydqwDao.save(xydqwEntity);
+        if (xydqwEntity == null){
+            return;
         } else {
-            xydqwDao.save(xydqwEntityList);
+            xydqwDao.save(xydqwEntity);
         }
 //        String publicUrl = publicEntity.getPublicUrl();
 //        if (publicDao.findByPublicUrl(publicUrl) == null){
