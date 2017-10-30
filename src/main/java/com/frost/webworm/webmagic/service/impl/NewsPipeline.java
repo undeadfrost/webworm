@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by LB on 2017/10/21.
+ * 持久化类
  */
 @Service
 public class NewsPipeline implements Pipeline {

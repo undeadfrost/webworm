@@ -21,7 +21,7 @@ public class XunyiPublicController {
     @RequestMapping("/start")
     public String start(){
         Spider.create(xydqwRepoPageProcessor)
-                .addUrl("http://www.xydqw.com/zjlt/zjzyjh/index.htm")
+                .addUrl("http://www.xydqw.com/yxxy/ystz/index.htm")
                 .addPipeline(newsPipeline)
                 .thread(1)
                 .run();
