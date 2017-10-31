@@ -55,7 +55,7 @@ public class XydqwRepoPageProcessor implements PageProcessor {
         } else {
             XydqwEntity xydqwEntity = new XydqwEntity();
             List<String> imgUrlList = new ArrayList<String>();
-            xydqwEntity.setTitle(page.getHtml().css("div.title").xpath("//div/text()").toString());
+            xydqwEntity.setTitle(page.getHtml().css("div.title").xpath("//div/text()").toString().trim());
             xydqwEntity.setSource(page.getHtml().$("div.title1").regex("(?<=来源：).*?(?=&nbsp;)").toString().trim());
             xydqwEntity.setAuthor(page.getHtml().$("div.title1").regex("(?<=作者：).*?(?=&nbsp;)").toString().trim());
             xydqwEntity.setTime(page.getHtml().$("div.title1").regex("(?<=时间：).*?(?=</div>)").toString().trim());

@@ -1,6 +1,7 @@
 package com.frost.webworm.webmagic.controller;
 
 import com.frost.webworm.webmagic.service.impl.NewsPipeline;
+import com.frost.webworm.webmagic.service.impl.SxsdqRepoPageProcessor;
 import com.frost.webworm.webmagic.service.impl.XydqwRepoPageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +17,13 @@ public class XunyiPublicController {
     private NewsPipeline newsPipeline;
 
     @Autowired
-    private XydqwRepoPageProcessor xydqwRepoPageProcessor;
+    private SxsdqRepoPageProcessor sxsdqRepoPageProcessor;
 
     @RequestMapping("/start")
     public String start(){
-        Spider.create(xydqwRepoPageProcessor)
-                .addUrl("http://www.xydqw.com/yxxy/ystz/index.htm")
-                .addPipeline(newsPipeline)
+        Spider.create(sxsdqRepoPageProcessor)
+                .addUrl("http://www.sxsdq.cn/sqzlk/xbsxz/sxdyl/xys_16200/xysz1/index.xml")
+                // .addPipeline(newsPipeline)
                 .thread(1)
                 .run();
         return "success";
